@@ -70,7 +70,7 @@ function SignUp() {
             type="text"
             name="name"
             className="nameInput"
-            placeHolder="Name"
+            placeholder="Name"
             id="name"
             value={name}
             onChange={onChange}
@@ -79,7 +79,7 @@ function SignUp() {
             type="email"
             name="email"
             className="emailInput"
-            placeHolder="Email"
+            placeholder="Email"
             id="email"
             value={email}
             onChange={onChange}
@@ -88,7 +88,7 @@ function SignUp() {
           <div className="passwordInputDiv">
             <input
               type={showPassword ? "text" : "password"}
-              placeHolder="Password"
+              placeholder="Password"
               name="password"
               className="passwordInput"
               value={password}
