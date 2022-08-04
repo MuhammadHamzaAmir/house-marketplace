@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -8,7 +8,7 @@ import {
 import {doc,setDoc,serverTimestamp} from "firebase/firestore";
 import { db } from "../firebase.config";
 import { toast } from "react-toastify";
-
+import OAuth from "../components/OAuth";
 
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
@@ -119,6 +119,8 @@ function SignUp() {
             </button>
           </div>
         </form>
+
+        <Outlet/>
 
         <Link className="registerLink" to="/sign-in">
           Already Logged In? then Sign In
