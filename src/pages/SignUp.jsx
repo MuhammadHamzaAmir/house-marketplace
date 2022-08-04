@@ -120,7 +120,7 @@ function SignUp() {
           </div>
         </form>
 
-        <Outlet/>
+        <OAuth/>
 
         <Link className="registerLink" to="/sign-in">
           Already Logged In? then Sign In
