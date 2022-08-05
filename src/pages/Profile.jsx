@@ -1,9 +1,12 @@
 import {getAuth, updateProfile} from "firebase/auth";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {updateDoc,doc} from "firebase/firestore";
 import {db} from "../firebase.config"
 import {toast} from "react-toastify";
+import arrowRightIcon from '../assets/svg/keyboardArrowRightIcon.svg';
+import homeIcon from "../assets/svg/homeIcon.svg";
+
 
 function Profile() {
     
@@ -70,14 +73,20 @@ function Profile() {
                         {changeDetails ? "Save Changes" : "Change Personal Details"}
                     </p>
                 </div>
-            </main>
+            
 
-            <div className="profileCard">
-                <form>
-                    <input type="text" name="name" id="name" value={name} onChange={onChange} className={!changeDetails ? 'profileName' : 'profileNameActive'} disabled={!changeDetails}/>
-                    <input type="text" name="email" id="email" value={email} onChange={onChange} className={!changeDetails ? 'profileEmail' : 'profileEmailActive'} disabled={true}/>
-                </form>
-            </div>
+                <div className="profileCard">
+                    <form>
+                        <input type="text" name="name" id="name" value={name} onChange={onChange} className={!changeDetails ? 'profileName' : 'profileNameActive'} disabled={!changeDetails}/>
+                        <input type="text" name="email" id="email" value={email} onChange={onChange} className={!changeDetails ? 'profileEmail' : 'profileEmailActive'} disabled={true}/>
+                    </form>
+                </div>
+                <Link to="/create-Listing" className="createListing">
+                    <img alt="Home" src={homeIcon}/>
+                    <p>Create Listing for selling or renting a home</p>
+                    <img alt="Arrow right" src={arrowRightIcon}/>
+                </Link>
+            </main>
         </div>
     )
 }
