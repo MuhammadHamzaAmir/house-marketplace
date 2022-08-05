@@ -5,6 +5,7 @@ import Spinner from "../components/Spinner";
 import {toast} from "react-toastify";
 import {getStorage, ref, getDownloadURL, uploadBytesResumable} from "firebase/storage";
 import {db} from "../firebase.config"
+import {getDoc,collection,serverTimestamp, addDoc} from "firebase/firestore"
 import {v4 as uuidv4} from "uuid";
 
 function CreateListing() {
@@ -122,18 +123,56 @@ function CreateListing() {
             });
         }
         const imgUrls = await Promise.all(
-            [...imageUrls].map(async (image) => {storeImage(image)})
+            [...imageUrls].map((image) => {storeImage(image)})
         ).catch((error) => {
             setLoading(false);
             toast.error("Error uploading images");
             return;
         });
 
-        console.log(imgUrls);
-        console.log(imageUrls);
-        console.log(formData);
-        setLoading(false);
+        // const updateFirestore = async () => {
+        //     const formDataCopy = {
+        //         ...formData,
+        //         geoloation,
+        //         timestamp: serverTimestamp(),
+        //         };
+        //     delete formDataCopy.imageUrls;
+        //     delete formDataCopy.lat;
+        //     delete formDataCopy.lng;
+        //     formDataCopy.imageUrls = imgUrls;
 
+        //     console.log(formDataCopy);
+        //     const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+        //     return docRef
+
+        // };
+
+        // await updateFirestore().then((id,data) => {   
+        //     setLoading(false);
+        //     toast.success("Listing created successfully");
+        //     navigate(`/category/${type}/${id}`);
+        // }).catch((error) => {
+        //     setLoading(false);
+        //     console.log(error);
+        //     toast.error("Error creating listing");
+        // })
+
+        const formDataCopy = {
+            ...formData,
+            geoloation,
+            timestamp: serverTimestamp(),
+            };
+        delete formDataCopy.imageUrls;
+        delete formDataCopy.lat;
+        delete formDataCopy.lng;
+        formDataCopy.imageUrls = imgUrls;
+
+        console.log(formDataCopy);
+        const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+        setLoading(false);
+        toast.success("Listing created successfully");
+        navigate(`/category/${type}/${docRef.id}`);
+    
         
     };
 
